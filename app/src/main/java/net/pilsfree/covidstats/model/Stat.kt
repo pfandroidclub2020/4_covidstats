@@ -23,5 +23,6 @@ data class Stat (
     val Date : Date,
     val Deaths : Int,
     val Confirmed : Int,
-    val Recovered : Int
+    val Recovered : Int,
+    val Active: Int
 )

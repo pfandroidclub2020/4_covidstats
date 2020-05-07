@@ -10,6 +10,6 @@ interface DataService {
     @GET("/countries")
     fun getCountries() : Call<List<Country>>
 
-    @GET("/country/{country}")
+    @GET("/dayone/country/{country}")
     fun getCountryStats(@Path("country") country: String) : Call<List<Stat>>
 }

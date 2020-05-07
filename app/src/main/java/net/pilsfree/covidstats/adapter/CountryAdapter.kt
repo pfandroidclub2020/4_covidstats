@@ -39,5 +39,11 @@ class CountryAdapter(val list: List<Country>, val onclick: (Int) -> Unit)
             onclick(position)
         }
 
+//        if (position % 2 == 0) {
+//            view.setBackgroundColor(ContextCompat.getColor(view.context,R.color.grey))
+//        } else {
+//            view.setBackgroundColor(ContextCompat.getColor(view.context,R.color.white))
+//        }
+
     }
 }
