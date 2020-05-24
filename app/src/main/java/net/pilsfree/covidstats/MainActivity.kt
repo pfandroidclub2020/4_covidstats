@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val scroll = savedInstanceState?.getInt("scroll",0)?:0
+
         val service = RetrofitClientInstance.retrofit.create(DataService::class.java)
 
         service.getCountries().enqueue(object : Callback<List<Country>> {
@@ -48,8 +50,13 @@ class MainActivity : AppCompatActivity() {
 
                 recycler.layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
                 recycler.addItemDecoration(DividerItemDecoration(this@MainActivity,LinearLayoutManager.VERTICAL))
+                (recycler.layoutManager as LinearLayoutManager).scrollToPosition(scroll)
             }
         })
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("scroll",(recycler.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition())
+        super.onSaveInstanceState(outState)
     }
 }

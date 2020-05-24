@@ -23,6 +23,8 @@ class StatsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
 
+        val scroll = savedInstanceState?.getInt("scroll",0)?:0
+
         val service = RetrofitClientInstance.retrofit.create(DataService::class.java)
 
         val iso2 = intent.getStringExtra("ISO2")
@@ -51,6 +53,7 @@ class StatsActivity : AppCompatActivity() {
 
                 recycler.layoutManager = LinearLayoutManager(this@StatsActivity,LinearLayoutManager.VERTICAL,false)
                 recycler.addItemDecoration(DividerItemDecoration(this@StatsActivity,LinearLayoutManager.VERTICAL))
+                (recycler.layoutManager as LinearLayoutManager).scrollToPosition(scroll)
 
             }
 
@@ -60,5 +63,10 @@ class StatsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("scroll",(recycler.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition())
+        super.onSaveInstanceState(outState)
     }
 }
